@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import praktikum.EnvConfig;
-import praktikum.pages.auth.EntrancePage;
 
 import java.time.Duration;
 
@@ -19,7 +18,6 @@ public class PersonalAccountPage {
         this.driver = driver;
     }
 
-
     public final By buttonExit = By.xpath(".//button[text()='Выход']");
     public final By windowPersonalAccountPage = By.className("App_componentContainer__2JC2W");
 
@@ -29,7 +27,6 @@ public class PersonalAccountPage {
         assertTrue(driver.findElement(buttonExit).isEnabled());
         driver.findElement(buttonExit).click();
     }
-
 
     //Метод появления страницы Личного кабинета
     @Step("Проверка что страница Личного кабинета открылась")

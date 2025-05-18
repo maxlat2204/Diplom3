@@ -1,5 +1,6 @@
 package praktikum.api;
 
+import io.qameta.allure.Step;
 import praktikum.EnvConfig;
 
 public class UserModel {

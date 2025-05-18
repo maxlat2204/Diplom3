@@ -13,15 +13,23 @@ import static praktikum.api.UserSteps.createUserStep;
 import static praktikum.api.UserSteps.deletedUserStep;
 
 public class HeaderTest {
+    @ClassRule
+    public static praktikum.DriverRule factory = new praktikum.DriverRule();
+
+    private static MainPage mainPage;
+    private static EntrancePage entrancePage;
+    private static PersonalAccountPage personalAccountPage;
 
     static UserModel user = UserModel.random();
     private static String accessToken;
 
-    @ClassRule
-    public static praktikum.DriverRule factory = new praktikum.DriverRule();
-
     @BeforeClass
-    public static void createUser(){
+    public static void setUp(){
+        WebDriver driver = factory.getDriver();
+        mainPage = new MainPage(driver);
+        entrancePage = new EntrancePage(driver);
+        personalAccountPage = new PersonalAccountPage(driver);
+
         accessToken = createUserStep(user)
                 .extract().path("accessToken");
     }
@@ -34,12 +42,7 @@ public class HeaderTest {
     @Test
     @DisplayName("Тест на переход в Личный кабинет")
     @Description("Проверяем, что можно перейти в Личный кабинет")
-    public void checkTransferPersonalAccount(){
-        WebDriver driver = factory.getDriver();
-        var mainPage = new MainPage(driver);
-        var entrancePage = new EntrancePage(driver);
-        var personalAccountPage = new PersonalAccountPage(driver);
-
+    public void checkTransferPersonalAccountTest(){
         mainPage.clickPersonalAccountButton();
         entrancePage.fillFormEntrance(user);
         mainPage.clickPersonalAccountButton();
@@ -49,10 +52,7 @@ public class HeaderTest {
     @Test
     @DisplayName("Тест на переход из Личного кабинета в конструктор, через Логотип")
     @Description("Проверяем, что можно перейти из Личного кабинета в конструктор, через Логотип")
-    public void checkTransferLogo() {
-        WebDriver driver = factory.getDriver();
-        var mainPage = new MainPage(driver);
-
+    public void checkTransferLogoTest() {
         mainPage.clickPersonalAccountButton();
         mainPage.clickLogoStellarBurgersButton();
         mainPage.goWindowMainPage();
@@ -61,10 +61,7 @@ public class HeaderTest {
     @Test
     @DisplayName("Тест на переход из Личного кабинета в конструктор, через кнопку Конструктор")
     @Description("Проверяем, что можно перейти из Личного кабинета в конструктор, через кнопку Конструктор")
-    public void checkTransferConstructor() {
-        WebDriver driver = factory.getDriver();
-        var mainPage = new MainPage(driver);
-
+    public void checkTransferConstructorTest() {
         mainPage.clickPersonalAccountButton();
         mainPage.clickConstructorButton();
         mainPage.goWindowMainPage();

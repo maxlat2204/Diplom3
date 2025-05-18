@@ -15,14 +15,28 @@ import static praktikum.api.UserSteps.createUserStep;
 import static praktikum.api.UserSteps.deletedUserStep;
 
 public class EntranceTest {
-    UserModel user = UserModel.random();
-    private String accessToken;
-
     @Rule
     public praktikum.DriverRule factory = new praktikum.DriverRule();
 
+    private MainPage mainPage;
+    private EntrancePage entrancePage;
+    private RegisterPage registerPage;
+    private PasswordRecoveryPage passwordRecoveryPage;
+    private PersonalAccountPage personalAccountPage;
+
+    UserModel user = UserModel.random();
+    private String accessToken;
+
     @Before
-    public void createUser(){
+    public void setUp(){
+        //Создание драйверов
+        WebDriver driver = factory.getDriver();
+        mainPage = new MainPage(driver);
+        entrancePage = new EntrancePage(driver);
+        registerPage = new RegisterPage(driver);
+        passwordRecoveryPage = new PasswordRecoveryPage(driver);
+        personalAccountPage = new PersonalAccountPage(driver);
+        //Создание пользователя
         accessToken = createUserStep(user)
                 .extract().path("accessToken");
     }
@@ -35,11 +49,7 @@ public class EntranceTest {
     @Test
     @DisplayName("Тест на вход через кнопку Войти в аккаунт на главной странице")
     @Description("Проверяем вход в аккаунт через кнопку Войти в аккаунт на главной странице")
-    public void buttonEnterAccountMainPage(){
-        WebDriver driver = factory.getDriver();
-        var mainPage = new MainPage(driver);
-        var entrancePage = new EntrancePage(driver);
-
+    public void buttonEnterAccountMainPageTest(){
         mainPage.clickEnterAccountButton();
         entrancePage.fillFormEntrance(user);
         mainPage.goWindowMainPage();
@@ -48,11 +58,7 @@ public class EntranceTest {
     @Test
     @DisplayName("Тест на вход через Личный кабинет")
     @Description("Проверяем вход в аккаунт через Личный кабинет")
-    public void buttonEnterPersonalAccount(){
-        WebDriver driver = factory.getDriver();
-        var mainPage = new MainPage(driver);
-        var entrancePage = new EntrancePage(driver);
-
+    public void buttonEnterPersonalAccountTest(){
         mainPage.clickPersonalAccountButton();
         entrancePage.fillFormEntrance(user);
         mainPage.goWindowMainPage();
@@ -61,12 +67,7 @@ public class EntranceTest {
     @Test
     @DisplayName("Тест на вход через кнопку в Форме регистрации")
     @Description("Производим вход в аккаунт через кнопку в Форме регистрации")
-    public void buttonEnterFormRegister(){
-        WebDriver driver = factory.getDriver();
-        var mainPage = new MainPage(driver);
-        var entrancePage = new EntrancePage(driver);
-        var registerPage = new RegisterPage(driver);
-
+    public void buttonEnterFormRegisterTest(){
         mainPage.clickPersonalAccountButton();
         entrancePage.clickRegisterAccount();
         registerPage.clickEntranceButtonRegisterPage();
@@ -77,12 +78,7 @@ public class EntranceTest {
     @Test
     @DisplayName("Тест на вход через кнопку в форме восстановления пароля")
     @Description("Производим вход в аккаунт через кнопку в форме восстановления пароля")
-    public void buttonEnterFormPasswordRecovery(){
-        WebDriver driver = factory.getDriver();
-        var mainPage = new MainPage(driver);
-        var entrancePage = new EntrancePage(driver);
-        var passwordRecoveryPage = new PasswordRecoveryPage(driver);
-
+    public void buttonEnterFormPasswordRecoveryTest(){
         mainPage.clickPersonalAccountButton();
         entrancePage.clickPasswordRecovery();
         passwordRecoveryPage.clickEntranceButtonPasswordRecoveryPage();
@@ -93,12 +89,7 @@ public class EntranceTest {
     @Test
     @DisplayName("Тест на Выход из аккаунта")
     @Description("Проверяем Выход из аккаунта")
-    public void exitInAccount(){
-        WebDriver driver = factory.getDriver();
-        var mainPage = new MainPage(driver);
-        var entrancePage = new EntrancePage(driver);
-        var personalAccountPage = new PersonalAccountPage(driver);
-
+    public void exitInAccountTest(){
         mainPage.clickPersonalAccountButton();
         entrancePage.fillFormEntrance(user);
         mainPage.clickPersonalAccountButton();

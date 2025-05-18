@@ -47,47 +47,37 @@ public class ConstructorWindow {
     //Метод Проверки скрола на Булки
     @Step("Проверка перехода на раздел Булки, в конструкторе")
     public void checkScrollBunsElemet() {
-        if (Objects.equals(driver.findElement(elementBuns).getDomAttribute("class"), EnvConfig.classSelectedTab)){
+        if (Objects.equals(driver.findElement(elementBuns).getDomAttribute("class"), EnvConfig.CLASS_SELECTED_TAB)){
             clickElementSauces();
         }
         clickElementBuns();
         new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.EXPLICIT_WAIT))
                 .until(ExpectedConditions.attributeContains(elementBuns, "class", "current"));
-        assertEquals(EnvConfig.classSelectedTab, driver.findElement(elementBuns).getDomAttribute("class"));
+        assertEquals(EnvConfig.CLASS_SELECTED_TAB, driver.findElement(elementBuns).getDomAttribute("class"));
     }
 
     //Метод Проверки скрола на Соусы
     @Step("Проверка перехода на раздел Соусы, в конструкторе")
     public void checkScrollSaucesElemet() {
-        if (Objects.equals(driver.findElement(elementSauces).getDomAttribute("class"), EnvConfig.classSelectedTab)){
+        if (Objects.equals(driver.findElement(elementSauces).getDomAttribute("class"), EnvConfig.CLASS_SELECTED_TAB)){
             clickElementBuns();
         }
         clickElementSauces();
         new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.EXPLICIT_WAIT))
                 .until(ExpectedConditions.attributeContains(elementSauces, "class", "current"));
-        assertEquals(EnvConfig.classSelectedTab, driver.findElement(elementSauces).getDomAttribute("class"));
+        assertEquals(EnvConfig.CLASS_SELECTED_TAB, driver.findElement(elementSauces).getDomAttribute("class"));
     }
 
     //Метод Проверки скрола на Начинки
     @Step("Проверка перехода на раздел Начинки, в конструкторе")
     public void checkScrollFillingsElemet() {
-        if (Objects.equals(driver.findElement(elementFillings).getDomAttribute("class"), EnvConfig.classSelectedTab)){
+        if (Objects.equals(driver.findElement(elementFillings).getDomAttribute("class"), EnvConfig.CLASS_SELECTED_TAB)){
             clickElementBuns();
         }
         clickElementFillings();
         new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.EXPLICIT_WAIT))
                 .until(ExpectedConditions.attributeContains(elementFillings, "class", "current"));
-        assertEquals(EnvConfig.classSelectedTab, driver.findElement(elementFillings).getDomAttribute("class"));
+        assertEquals(EnvConfig.CLASS_SELECTED_TAB, driver.findElement(elementFillings).getDomAttribute("class"));
     }
 
-//    //Метод Проверки скрола 3 элементов
-//    public void checkScrollThreeElemets() {
-//        var ingredientTab = By.cssSelector(".tab_tab__1SPyG:nth-child(3)");
-//        new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.EXPLICIT_WAIT))
-//                .until(ExpectedConditions.visibilityOfElementLocated(ingredientTab));
-//        driver.findElement(ingredientTab).click();
-//        new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.EXPLICIT_WAIT))
-//                .until(ExpectedConditions.attributeContains(ingredientTab, "class", "current"));
-//        assertEquals("tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect", driver.findElement(ingredientTab).getDomAttribute("class"));
-//    }
 }
